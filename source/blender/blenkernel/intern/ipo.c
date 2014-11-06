@@ -1427,7 +1427,7 @@ static void ipo_to_animato(ID *id, Ipo *ipo, char actname[], char constname[], S
 	
 	/* if this IPO block doesn't have any users after this one, free... */
 	ipo->id.us--;
-	if (ID_REAL_USERS(ipo) <= 0) {
+	if (false && ID_REAL_USERS(ipo) <= 0) {
 		IpoCurve *icn;
 		
 		for (icu = ipo->curve.first; icu; icu = icn) {
