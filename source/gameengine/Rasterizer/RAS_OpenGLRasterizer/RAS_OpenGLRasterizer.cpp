@@ -828,8 +828,8 @@ void RAS_OpenGLRasterizer::SetProjectionMatrix(const MT_Matrix4x4 & mat)
 
 void RAS_OpenGLRasterizer::SetModelviewMatrix(const MT_Matrix4x4 & mat)
 {
-  	m_viewmatrix = mat;
-  	m_viewinvmatrix = m_viewmatrix;
+	m_viewmatrix = mat;
+	m_viewinvmatrix = m_viewmatrix;
 	m_viewinvmatrix.invert();
 
 	glMatrixMode(GL_MODELVIEW);
