@@ -67,7 +67,6 @@ KX_Camera::KX_Camera(void* sgReplicationInfo,
 	UpdateModelViewMatrix();
 }
 
-
 KX_Camera::~KX_Camera()
 {
 	if (m_delete_node && m_pSGNode)
@@ -139,15 +138,11 @@ const MT_Point3 KX_Camera::GetCameraLocation() const
 	return NodeGetWorldPosition();
 }
 
-
-
 /* I want the camera orientation as well. */
 const MT_Quaternion KX_Camera::GetCameraOrientation() const
 {
 	return NodeGetWorldOrientation().getRotation();
 }
-
-
 
 /**
 * Sets the current eye for both projection and modelview matrices
@@ -168,7 +163,6 @@ void KX_Camera::SetProjectionMatrix(const MT_Matrix4x4 & mat)
 	SetProjectionMatrix(mat, m_current_rendering_eye);
 }
 
-
 /**
 * Sets the projection matrix that is used by the rasterizer.
 */
@@ -180,7 +174,6 @@ void KX_Camera::SetProjectionMatrix(const MT_Matrix4x4 & mat, int eye)
 	m_set_frustum_center = false;
 }
 
-
 /**
 * Sets the projection matrix that is used by the rasterizer.
 */
@@ -190,7 +183,6 @@ void KX_Camera::SetStereoPositionMatrix(const MT_Matrix4x4 & mat, int eye)
 	m_set_stereo_position_matrix[eye] = true;
 	UpdateModelViewMatrix();
 }
-
 
 /**
  * Sets the modelview matrix that is used by the rasterizer.
@@ -202,8 +194,6 @@ void KX_Camera::SetModelViewMatrix(const MT_Matrix4x4 & mat)
 	m_set_frustum_center = false;
 	UpdateModelViewMatrix();
 }
-
-
 
 /**
  * Gets the projection matrix that is used by the rasterizer.
