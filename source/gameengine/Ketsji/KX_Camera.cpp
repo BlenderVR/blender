@@ -65,7 +65,7 @@ KX_Camera::KX_Camera(void* sgReplicationInfo,
 		m_set_stereo_position_matrix[eye_index] = false;
 	}
 	m_camera_position_matrix.setIdentity();
-	updateModelviewMatrix();
+	UpdateModelViewMatrix();
 }
 
 
@@ -100,7 +100,7 @@ void KX_Camera::ProcessReplica()
 /**
 * Update the modelview matrix by multiplying camera position and post-camera position matrices
 */
-void KX_Camera::updateModelviewMatrix()
+void KX_Camera::UpdateModelViewMatrix()
 {
 	m_modelview_matrix = m_stereo_position_matrix[m_current_rendering_eye] * m_camera_position_matrix;
 }
@@ -158,7 +158,7 @@ void KX_Camera::SetRenderingMatricesEye(int eye)
          if ((eye >= 0) && (eye < 3))
          {
 	            m_current_rendering_eye = eye;
-		    updateModelviewMatrix();
+		    UpdateModelViewMatrix();
          }
 }
 
@@ -190,19 +190,19 @@ void KX_Camera::SetStereoPositionMatrix(const MT_Matrix4x4 & mat, int eye)
 {
 	m_stereo_position_matrix[eye] = mat;
 	m_set_stereo_position_matrix[eye] = true;
-	updateModelviewMatrix();
+	UpdateModelViewMatrix();
 }
 
 
 /**
  * Sets the modelview matrix that is used by the rasterizer.
  */
-void KX_Camera::SetModelviewMatrix(const MT_Matrix4x4 & mat)
+void KX_Camera::SetModelViewMatrix(const MT_Matrix4x4 & mat)
 {
 	m_camera_position_matrix = mat;
 	m_dirty = true;
 	m_set_frustum_center = false;
-	updateModelviewMatrix();
+	UpdateModelViewMatrix();
 }
 
 

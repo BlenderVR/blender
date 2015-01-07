@@ -169,7 +169,7 @@ protected:
 	/**
 	 * Update the modelview matrix by multiplying camera position and post-camera position matrices
 	 */
-	void updateModelviewMatrix();
+	void UpdateModelViewMatrix();
 
 public:
 
