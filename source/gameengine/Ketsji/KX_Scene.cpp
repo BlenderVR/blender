@@ -2483,7 +2483,6 @@ PyObject* KX_Scene::pyattr_get_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF
 	return PyUnicode_From_STR_String("unknown");
 }
 
-
 int KX_Scene::pyattr_set_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Scene* self = static_cast<KX_Scene*>(self_v);

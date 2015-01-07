@@ -826,7 +826,7 @@ void RAS_OpenGLRasterizer::SetProjectionMatrix(const MT_Matrix4x4 & mat)
 	m_camortho= (mat[3][3] != 0.0);
 }
 
-void RAS_OpenGLRasterizer::SetModelViewMatrix(const MT_Matrix4x4 & mat)
+void RAS_OpenGLRasterizer::SetModelViewMatrix(const MT_Matrix4x4 &mat)
 {
 	m_viewmatrix = mat;
 	m_viewinvmatrix = m_viewmatrix;

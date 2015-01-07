@@ -284,10 +284,12 @@ public:
 	virtual void SetProjectionMatrix(const MT_Matrix4x4 &mat) = 0;
 
 	/**
+	 * Sets the modelview matrix
 	 */
 	virtual void SetModelViewMatrix(const MT_Matrix4x4 & mat) = 0;
 
 	/**
+	 * Sets the camera position used for rendering
 	 */
 	virtual void SetCameraPosition(const MT_Point3 & pos) = 0;
 
