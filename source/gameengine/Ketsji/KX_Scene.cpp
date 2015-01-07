@@ -2371,8 +2371,9 @@ PyObject *KX_Scene::pyattr_get_drawing_callback_pre_render(void *self_v, const K
 {
 	KX_Scene* self = static_cast<KX_Scene*>(self_v);
 
-	if(self->m_draw_call_pre_render==NULL)
-		self->m_draw_call_pre_render= PyList_New(0);
+	if (self->m_draw_call_pre_render == NULL)
+		self->m_draw_call_pre_render = PyList_New(0);
+
 	Py_INCREF(self->m_draw_call_pre_render);
 	return self->m_draw_call_pre_render;
 }
@@ -2470,15 +2471,15 @@ int KX_Scene::pyattr_set_gravity(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef
 PyObject* KX_Scene::pyattr_get_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
 {
 	KX_Scene* self = static_cast<KX_Scene*>(self_v);
-
 	const RAS_FrameSettings &frameSettings = self->GetFramingType();
+
 	switch (frameSettings.FrameType()) {
-	case RAS_FrameSettings::e_frame_scale:
-	  return PyUnicode_From_STR_String("scale");
-	case RAS_FrameSettings::e_frame_extend:
-	  return PyUnicode_From_STR_String("extend");
-	case RAS_FrameSettings::e_frame_bars:
-	  return PyUnicode_From_STR_String("bars");
+		case RAS_FrameSettings::e_frame_scale:
+			return PyUnicode_From_STR_String("scale");
+		case RAS_FrameSettings::e_frame_extend:
+			return PyUnicode_From_STR_String("extend");
+		case RAS_FrameSettings::e_frame_bars:
+			return PyUnicode_From_STR_String("bars");
 	}
 	return PyUnicode_From_STR_String("unknown");
 }
@@ -2486,28 +2487,26 @@ PyObject* KX_Scene::pyattr_get_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF
 int KX_Scene::pyattr_set_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Scene* self = static_cast<KX_Scene*>(self_v);
-
+	RAS_FrameSettings::RAS_FrameType type;
 	const char *str_type= _PyUnicode_AsString(value);
+
 	if (str_type == NULL) {
-	        PyErr_SetString(PyExc_AttributeError, "scene.frame_type = [scale | extend | bars]: KX_Scene, expected frame_type value");
+		PyErr_SetString(PyExc_AttributeError, "scene.frame_type = [scale | extend | bars]: KX_Scene, expected frame_type value");
 		return PY_SET_ATTR_FAIL;
 	}
 
-	RAS_FrameSettings::RAS_FrameType type;
-
-	if (strcmp(str_type, "scale") == 0) {
-	  type = RAS_FrameSettings::e_frame_scale;
-	} else if (strcmp(str_type, "extend") == 0) {
-	  type = RAS_FrameSettings::e_frame_extend;
-	} else if (strcmp(str_type, "bars") == 0) {
-	  type = RAS_FrameSettings::e_frame_bars;
+	if (STREQ(str_type, "scale")) {
+		type = RAS_FrameSettings::e_frame_scale;
+	} else if (STREQ(str_type, "extend")) {
+		type = RAS_FrameSettings::e_frame_extend;
+	} else if (STREQ(str_type, "bars")) {
+		type = RAS_FrameSettings::e_frame_bars;
 	} else {
-	        PyErr_SetString(PyExc_AttributeError, "scene.frame_type = [scale | extend | bars]: KX_Scene, expected frame_type value");
+		PyErr_SetString(PyExc_AttributeError, "scene.frame_type = [scale | extend | bars]: KX_Scene, expected frame_type value");
 		return PY_SET_ATTR_FAIL;
 	}
 
 	self->m_frame_settings.SetFrameType(type);
-
 	return PY_SET_ATTR_SUCCESS;
 }
 
