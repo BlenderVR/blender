@@ -57,9 +57,8 @@ KX_Camera::KX_Camera(void* sgReplicationInfo,
 {
 	// setting a name would be nice...
 	m_name = "cam";
-	for (unsigned int eye_index = 0 ; eye_index < 3 ; eye_index ++)
-	{
-	        m_set_projection_matrix[eye_index] = false;
+	for (unsigned int eye_index = 0; eye_index < 3; eye_index ++) {
+		m_set_projection_matrix[eye_index] = false;
 		m_projection_matrix[eye_index].setIdentity();
 		m_stereo_position_matrix[eye_index].setIdentity();
 		m_set_stereo_position_matrix[eye_index] = false;
@@ -155,11 +154,10 @@ const MT_Quaternion KX_Camera::GetCameraOrientation() const
 */
 void KX_Camera::SetRenderingMatricesEye(int eye)
 {
-         if ((eye >= 0) && (eye < 3))
-         {
-	            m_current_rendering_eye = eye;
-		    UpdateModelViewMatrix();
-         }
+	if ((eye >= 0) && (eye < 3)) {
+		m_current_rendering_eye = eye;
+		UpdateModelViewMatrix();
+	}
 }
 
 /**
@@ -212,7 +210,7 @@ void KX_Camera::SetModelViewMatrix(const MT_Matrix4x4 & mat)
  */
 const MT_Matrix4x4& KX_Camera::GetProjectionMatrix() const
 {
-    return GetProjectionMatrix(m_current_rendering_eye);
+	return GetProjectionMatrix(m_current_rendering_eye);
 }
 
 /**
@@ -233,15 +231,16 @@ const MT_Matrix4x4& KX_Camera::GetStereoPositionMatrix(int eye) const
 
 const MT_Matrix4x4 KX_Camera::GetStereoMatrix(float eyeSeparation) const
 {
-        MT_Matrix4x4 result;
+	MT_Matrix4x4 result;
 	result.setIdentity();
+
 	if (m_set_stereo_position_matrix[m_current_rendering_eye]) {
-	        return m_stereo_position_matrix[m_current_rendering_eye];
+		return m_stereo_position_matrix[m_current_rendering_eye];
 	}
+
 	// correction for stereo
-	if((m_current_rendering_eye != MIDDLE_EYE) && (m_camdata.m_perspective))
-	{
-	        MT_Matrix3x3 camOrientMat3x3 = NodeGetWorldOrientation();
+	if ((m_current_rendering_eye != MIDDLE_EYE) && (m_camdata.m_perspective)) {
+		MT_Matrix3x3 camOrientMat3x3 = NodeGetWorldOrientation();
 
 		MT_Vector3 unitViewDir(0.0, -1.0, 0.0);  // minus y direction, Blender convention
 		MT_Vector3 unitViewupVec(0.0, 0.0, 1.0);
@@ -256,26 +255,25 @@ const MT_Matrix4x4 KX_Camera::GetStereoMatrix(float eyeSeparation) const
 		// vector between eyes
 		eyeline = viewDir.cross(viewupVec);
 
-		switch(m_current_rendering_eye)
-		{
+		switch(m_current_rendering_eye) {
 			case LEFT_EYE:
-				{
+			{
 				// translate to left by half the eye distance
 				MT_Transform transform;
 				transform.setIdentity();
 				transform.translate(-(eyeline * eyeSeparation / 2.0));
 				result *= transform;
-				}
 				break;
+			}
 			case RIGHT_EYE:
-				{
+			{
 				// translate to right by half the eye distance
 				MT_Transform transform;
 				transform.setIdentity();
 				transform.translate(eyeline * eyeSeparation / 2.0);
 				result *= transform;
-				}
 				break;
+			}
 		}
 	}
 	return result;
@@ -297,9 +295,8 @@ bool KX_Camera::hasValidProjectionMatrix() const
 
 void KX_Camera::InvalidateAllProjectionMatrices(bool valid)
 {
-	for (unsigned int eye_index = 0 ; eye_index < 3 ; eye_index ++)
-	{
-	        m_set_projection_matrix[eye_index] = valid;
+	for (unsigned int eye_index = 0; eye_index < 3; eye_index ++) {
+		m_set_projection_matrix[eye_index] = valid;
 	}
 }
 
@@ -654,12 +651,9 @@ PyAttributeDef KX_Camera::Attributes[] = {
 	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix_left",	KX_Camera,	pyattr_get_left_projection_matrix, pyattr_set_left_projection_matrix),
 	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix_right",	KX_Camera,	pyattr_get_right_projection_matrix, pyattr_set_right_projection_matrix),
 
-	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix",	KX_Camera,
-				   pyattr_get_stereo_position_matrix, pyattr_set_stereo_position_matrix),
-	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix_left",	KX_Camera,
-				   pyattr_get_left_stereo_position_matrix, pyattr_set_left_stereo_position_matrix),
-	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix_right",	KX_Camera,
-				   pyattr_get_right_stereo_position_matrix, pyattr_set_right_stereo_position_matrix),
+	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix",	KX_Camera,	pyattr_get_stereo_position_matrix, pyattr_set_stereo_position_matrix),
+	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix_left",	KX_Camera,	pyattr_get_left_stereo_position_matrix, pyattr_set_left_stereo_position_matrix),
+	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix_right",	KX_Camera,   pyattr_get_right_stereo_position_matrix, pyattr_set_right_stereo_position_matrix),
 
 	KX_PYATTRIBUTE_RO_FUNCTION("modelview_matrix",	KX_Camera,	pyattr_get_modelview_matrix),
 	KX_PYATTRIBUTE_RO_FUNCTION("camera_to_world",	KX_Camera,	pyattr_get_camera_to_world),
