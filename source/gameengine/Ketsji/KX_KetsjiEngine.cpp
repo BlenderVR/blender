@@ -1300,8 +1300,8 @@ void KX_KetsjiEngine::RenderFrame(KX_Scene* scene, KX_Camera* cam)
 	MT_Transform camtrans(cam->GetWorldToCamera());
 	MT_Matrix4x4 viewmat(camtrans);
 	
-	cam->SetModelviewMatrix(viewmat);
-	m_rasterizer->SetModelviewMatrix(cam->GetStereoMatrix(m_rasterizer->GetEyeSeparation()) * viewmat);
+	cam->SetModelViewMatrix(viewmat);
+	m_rasterizer->SetModelViewMatrix(cam->GetStereoMatrix(m_rasterizer->GetEyeSeparation()) * viewmat);
 	m_rasterizer->SetCameraPosition(cam->NodeGetWorldPosition());
 
 	// The following actually reschedules all vertices to be

@@ -267,8 +267,8 @@ void ImageRender::Render()
 	MT_Transform camtrans(m_camera->GetWorldToCamera());
 	MT_Matrix4x4 viewmat(camtrans);
 	
-	m_camera->SetModelviewMatrix(viewmat);
-	m_rasterizer->SetModelviewMatrix(m_camera->GetStereoMatrix(m_rasterizer->GetEyeSeparation()) * viewmat);
+	m_camera->SetModelViewMatrix(viewmat);
+	m_rasterizer->SetModelViewMatrix(m_camera->GetStereoMatrix(m_rasterizer->GetEyeSeparation()) * viewmat);
 	m_rasterizer->SetCameraPosition(m_camera->NodeGetWorldPosition());
 	// restore the stereo mode now that the matrix is computed
 	m_rasterizer->SetStereoMode(stereomode);

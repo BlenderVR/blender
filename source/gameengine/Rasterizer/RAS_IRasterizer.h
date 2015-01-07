@@ -285,11 +285,11 @@ public:
 
 	/**
 	 */
-	virtual void	SetModelviewMatrix(const MT_Matrix4x4 & mat)=0;
+	virtual void SetModelViewMatrix(const MT_Matrix4x4 & mat) = 0;
 
 	/**
 	 */
-	virtual void    SetCameraPosition(const	MT_Point3 & pos)=0;
+	virtual void SetCameraPosition(const MT_Point3 & pos) = 0;
 
 	/**
 	 */

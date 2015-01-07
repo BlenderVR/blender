@@ -210,7 +210,7 @@ void RAS_OpenGLLight::BindShadowBuffer(RAS_ICanvas *canvas, KX_Camera *cam, MT_T
 	MT_Transform trans = MT_Transform((float*)viewmat);
 	camtrans.invert(trans);
 
-	cam->SetModelviewMatrix(modelviewmat);
+	cam->SetModelViewMatrix(modelviewmat);
 	cam->SetProjectionMatrix(projectionmat);
 
 	cam->NodeSetLocalPosition(camtrans.getOrigin());
@@ -222,7 +222,7 @@ void RAS_OpenGLLight::BindShadowBuffer(RAS_ICanvas *canvas, KX_Camera *cam, MT_T
 	RAS_IRasterizer::StereoMode stereomode = m_rasterizer->GetStereoMode();
 	m_rasterizer->SetStereoMode(RAS_IRasterizer::RAS_STEREO_NOSTEREO);
 	m_rasterizer->SetProjectionMatrix(projectionmat);
-	m_rasterizer->SetModelviewMatrix(modelviewmat);
+	m_rasterizer->SetModelViewMatrix(modelviewmat);
 	m_rasterizer->SetStereoMode(stereomode);
 }
 

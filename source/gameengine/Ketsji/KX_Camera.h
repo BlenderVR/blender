@@ -212,7 +212,7 @@ public:
 	void				SetStereoPositionMatrix(const MT_Matrix4x4 & mat, int eye);
 
 	/** Sets the modelview matrix that is used by the rasterizer. */
-	void				SetModelviewMatrix(const MT_Matrix4x4 & mat);
+	void				SetModelViewMatrix(const MT_Matrix4x4 & mat);
 
 	/** Gets the projection matrix that is used by the rasterizer.
 	 * Work on current active matrix */
