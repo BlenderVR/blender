@@ -222,7 +222,7 @@ public:
 	const MT_Matrix4x4&		GetProjectionMatrix(int eye) const;
 
 	/** Gets the Post Camera matrix that is used by the rasterizer. */
-	const MT_Matrix4x4&		GetStereoPositionMatrix(int eye) const;
+	const MT_Matrix4x4&		GetPositionMatrix(int eye) const;
 
 	/** Gets the Stereo matrix that is used by the rasterizer. */
 	const MT_Matrix4x4		GetStereoMatrix(float eyeSeparation) const;
@@ -362,18 +362,18 @@ public:
 	static int			pyattr_set_use_viewport(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	
 	static PyObject*	pyattr_get_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
-	static PyObject*	pyattr_get_left_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
-	static PyObject*	pyattr_get_right_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static PyObject*	pyattr_get_projection_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static PyObject*	pyattr_get_projection_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
-	static int			pyattr_set_left_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
-	static int			pyattr_set_right_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static int			pyattr_set_projection_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static int			pyattr_set_projection_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 
-	static PyObject*	pyattr_get_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
-	static PyObject*	pyattr_get_left_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
-	static PyObject*	pyattr_get_right_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
-	static int			pyattr_set_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
-	static int			pyattr_set_left_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
-	static int			pyattr_set_right_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static PyObject*	pyattr_get_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static PyObject*	pyattr_get_position_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static PyObject*	pyattr_get_position_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
+	static int			pyattr_set_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static int			pyattr_set_position_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
+	static int			pyattr_set_position_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 
 	static PyObject*	pyattr_get_modelview_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static PyObject*	pyattr_get_camera_to_world(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef);

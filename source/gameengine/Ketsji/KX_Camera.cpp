@@ -214,7 +214,7 @@ const MT_Matrix4x4& KX_Camera::GetProjectionMatrix(int eye) const
 /**
 * Gets the Post Camera matrix that is used by the rasterizer.
 */
-const MT_Matrix4x4& KX_Camera::GetStereoPositionMatrix(int eye) const
+const MT_Matrix4x4& KX_Camera::GetPositionMatrix(int eye) const
 {
 	return m_stereo_position_matrix[eye];
 }
@@ -638,12 +638,12 @@ PyAttributeDef KX_Camera::Attributes[] = {
 	KX_PYATTRIBUTE_RW_FUNCTION("useViewport",	KX_Camera,	pyattr_get_use_viewport,  pyattr_set_use_viewport),
 	
 	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix",	KX_Camera,	pyattr_get_projection_matrix, pyattr_set_projection_matrix),
-	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix_left",	KX_Camera,	pyattr_get_left_projection_matrix, pyattr_set_left_projection_matrix),
-	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix_right",	KX_Camera,	pyattr_get_right_projection_matrix, pyattr_set_right_projection_matrix),
+	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix_left",	KX_Camera,	pyattr_get_projection_matrix_left, pyattr_set_projection_matrix_left),
+	KX_PYATTRIBUTE_RW_FUNCTION("projection_matrix_right",	KX_Camera,	pyattr_get_projection_matrix_right, pyattr_set_projection_matrix_right),
 
-	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix",	KX_Camera,	pyattr_get_stereo_position_matrix, pyattr_set_stereo_position_matrix),
-	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix_left",	KX_Camera,	pyattr_get_left_stereo_position_matrix, pyattr_set_left_stereo_position_matrix),
-	KX_PYATTRIBUTE_RW_FUNCTION("stereo_position_matrix_right",	KX_Camera,   pyattr_get_right_stereo_position_matrix, pyattr_set_right_stereo_position_matrix),
+	KX_PYATTRIBUTE_RW_FUNCTION("position_matrix",	KX_Camera,	pyattr_get_position_matrix, pyattr_set_position_matrix),
+	KX_PYATTRIBUTE_RW_FUNCTION("position_matrix_left",	KX_Camera,	pyattr_get_position_matrix_left, pyattr_set_position_matrix_left),
+	KX_PYATTRIBUTE_RW_FUNCTION("position_matrix_right",	KX_Camera,   pyattr_get_position_matrix_right, pyattr_set_position_matrix_right),
 
 	KX_PYATTRIBUTE_RO_FUNCTION("modelview_matrix",	KX_Camera,	pyattr_get_modelview_matrix),
 	KX_PYATTRIBUTE_RO_FUNCTION("camera_to_world",	KX_Camera,	pyattr_get_camera_to_world),
@@ -984,13 +984,13 @@ PyObject *KX_Camera::pyattr_get_projection_matrix(void *self_v, const KX_PYATTRI
 	return PyObjectFrom(self->GetProjectionMatrix(MIDDLE_EYE));
 }
 
-PyObject* KX_Camera::pyattr_get_left_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
+PyObject* KX_Camera::pyattr_get_projection_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	return PyObjectFrom(self->GetProjectionMatrix(LEFT_EYE));
 }
 
-PyObject* KX_Camera::pyattr_get_right_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
+PyObject* KX_Camera::pyattr_get_projection_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	return PyObjectFrom(self->GetProjectionMatrix(RIGHT_EYE));
@@ -1007,7 +1007,7 @@ int KX_Camera::pyattr_set_projection_matrix(void *self_v, const KX_PYATTRIBUTE_D
 	return PY_SET_ATTR_SUCCESS;
 }
 
-int KX_Camera::pyattr_set_left_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
+int KX_Camera::pyattr_set_projection_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	MT_Matrix4x4 mat;
@@ -1018,7 +1018,7 @@ int KX_Camera::pyattr_set_left_projection_matrix(void *self_v, const KX_PYATTRIB
 	return PY_SET_ATTR_SUCCESS;
 }
 
-int KX_Camera::pyattr_set_right_projection_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
+int KX_Camera::pyattr_set_projection_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	MT_Matrix4x4 mat;
@@ -1029,25 +1029,25 @@ int KX_Camera::pyattr_set_right_projection_matrix(void *self_v, const KX_PYATTRI
 	return PY_SET_ATTR_SUCCESS;
 }
 
-PyObject* KX_Camera::pyattr_get_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
+PyObject* KX_Camera::pyattr_get_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
-	return PyObjectFrom(self->GetStereoPositionMatrix(MIDDLE_EYE));
+	return PyObjectFrom(self->GetPositionMatrix(MIDDLE_EYE));
 }
 
-PyObject* KX_Camera::pyattr_get_left_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
+PyObject* KX_Camera::pyattr_get_position_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
-	return PyObjectFrom(self->GetStereoPositionMatrix(LEFT_EYE));
+	return PyObjectFrom(self->GetPositionMatrix(LEFT_EYE));
 }
 
-PyObject* KX_Camera::pyattr_get_right_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
+PyObject* KX_Camera::pyattr_get_position_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
-	return PyObjectFrom(self->GetStereoPositionMatrix(RIGHT_EYE));
+	return PyObjectFrom(self->GetPositionMatrix(RIGHT_EYE));
 }
 
-int KX_Camera::pyattr_set_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
+int KX_Camera::pyattr_set_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	MT_Matrix4x4 mat;
@@ -1058,7 +1058,7 @@ int KX_Camera::pyattr_set_stereo_position_matrix(void *self_v, const KX_PYATTRIB
 	return PY_SET_ATTR_SUCCESS;
 }
 
-int KX_Camera::pyattr_set_left_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
+int KX_Camera::pyattr_set_position_matrix_left(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	MT_Matrix4x4 mat;
@@ -1069,7 +1069,7 @@ int KX_Camera::pyattr_set_left_stereo_position_matrix(void *self_v, const KX_PYA
 	return PY_SET_ATTR_SUCCESS;
 }
 
-int KX_Camera::pyattr_set_right_stereo_position_matrix(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
+int KX_Camera::pyattr_set_position_matrix_right(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
 {
 	KX_Camera* self= static_cast<KX_Camera*>(self_v);
 	MT_Matrix4x4 mat;
