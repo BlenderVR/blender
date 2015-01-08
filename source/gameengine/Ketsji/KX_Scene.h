@@ -625,8 +625,6 @@ public:
 	static int			pyattr_set_drawing_callback_post(void *selv_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 	static PyObject*	pyattr_get_gravity(void* self_v, const KX_PYATTRIBUTE_DEF *attrdef);
 	static int			pyattr_set_gravity(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
-	static PyObject*	pyattr_get_frame_type(void* self_v, const KX_PYATTRIBUTE_DEF *attrdef);
-	static int			pyattr_set_frame_type(void *selv_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value);
 
 	virtual PyObject *py_repr(void) { return PyUnicode_From_STR_String(GetName()); }
 	

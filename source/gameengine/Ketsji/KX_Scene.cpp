@@ -2468,48 +2468,6 @@ int KX_Scene::pyattr_set_gravity(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef
 	return PY_SET_ATTR_SUCCESS;
 }
 
-PyObject* KX_Scene::pyattr_get_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef)
-{
-	KX_Scene* self = static_cast<KX_Scene*>(self_v);
-	const RAS_FrameSettings &frameSettings = self->GetFramingType();
-
-	switch (frameSettings.FrameType()) {
-		case RAS_FrameSettings::e_frame_scale:
-			return PyUnicode_From_STR_String("scale");
-		case RAS_FrameSettings::e_frame_extend:
-			return PyUnicode_From_STR_String("extend");
-		case RAS_FrameSettings::e_frame_bars:
-			return PyUnicode_From_STR_String("bars");
-	}
-	return PyUnicode_From_STR_String("unknown");
-}
-
-int KX_Scene::pyattr_set_frame_type(void *self_v, const KX_PYATTRIBUTE_DEF *attrdef, PyObject *value)
-{
-	KX_Scene* self = static_cast<KX_Scene*>(self_v);
-	RAS_FrameSettings::RAS_FrameType type;
-	const char *str_type= _PyUnicode_AsString(value);
-
-	if (str_type == NULL) {
-		PyErr_SetString(PyExc_AttributeError, "scene.frame_type = [scale | extend | bars]: KX_Scene, expected frame_type value");
-		return PY_SET_ATTR_FAIL;
-	}
-
-	if (STREQ(str_type, "scale")) {
-		type = RAS_FrameSettings::e_frame_scale;
-	} else if (STREQ(str_type, "extend")) {
-		type = RAS_FrameSettings::e_frame_extend;
-	} else if (STREQ(str_type, "bars")) {
-		type = RAS_FrameSettings::e_frame_bars;
-	} else {
-		PyErr_SetString(PyExc_AttributeError, "scene.frame_type = [scale | extend | bars]: KX_Scene, expected frame_type value");
-		return PY_SET_ATTR_FAIL;
-	}
-
-	self->m_frame_settings.SetFrameType(type);
-	return PY_SET_ATTR_SUCCESS;
-}
-
 PyAttributeDef KX_Scene::Attributes[] = {
 	KX_PYATTRIBUTE_RO_FUNCTION("name",				KX_Scene, pyattr_get_name),
 	KX_PYATTRIBUTE_RO_FUNCTION("objects",			KX_Scene, pyattr_get_objects),
@@ -2520,7 +2478,6 @@ PyAttributeDef KX_Scene::Attributes[] = {
 	KX_PYATTRIBUTE_RW_FUNCTION("pre_render",		KX_Scene, pyattr_get_drawing_callback_pre_render, pyattr_set_drawing_callback_pre_render),
 	KX_PYATTRIBUTE_RW_FUNCTION("pre_draw",			KX_Scene, pyattr_get_drawing_callback_pre, pyattr_set_drawing_callback_pre),
 	KX_PYATTRIBUTE_RW_FUNCTION("post_draw",			KX_Scene, pyattr_get_drawing_callback_post, pyattr_set_drawing_callback_post),
-	KX_PYATTRIBUTE_RW_FUNCTION("frame_type",		KX_Scene, pyattr_get_frame_type, pyattr_set_frame_type),
 	KX_PYATTRIBUTE_RW_FUNCTION("gravity",			KX_Scene, pyattr_get_gravity, pyattr_set_gravity),
 	KX_PYATTRIBUTE_BOOL_RO("suspended",				KX_Scene, m_suspend),
 	KX_PYATTRIBUTE_BOOL_RO("activity_culling",		KX_Scene, m_activity_culling),
