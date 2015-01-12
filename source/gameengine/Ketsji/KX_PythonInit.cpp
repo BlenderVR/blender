@@ -1006,6 +1006,23 @@ static PyObject *gPyGetFocalLength(PyObject *, PyObject *, PyObject *)
 	Py_RETURN_NONE;
 }
 
+static PyObject *gPyGetStereoEye(PyObject *, PyObject *, PyObject *)
+{
+	int flag = RAS_IRasterizer::RAS_STEREO_LEFTEYE;
+
+	if (!gp_Rasterizer) {
+		PyErr_SetString(PyExc_RuntimeError, "Rasterizer.getStereoEye(), Rasterizer not available");
+		return NULL;
+	}
+
+	if (gp_Rasterizer->Stereo())
+		flag = gp_Rasterizer->GetEye();
+
+	return PyLong_FromLong(flag);
+
+	Py_RETURN_NONE;
+}
+
 static PyObject *gPySetBackgroundColor(PyObject *, PyObject *value)
 {
 	
@@ -1496,6 +1513,7 @@ static struct PyMethodDef rasterizer_methods[] = {
 	{"getEyeSeparation", (PyCFunction) gPyGetEyeSeparation, METH_NOARGS, "get the eye separation for stereo mode"},
 	{"setFocalLength", (PyCFunction) gPySetFocalLength, METH_VARARGS, "set the focal length for stereo mode"},
 	{"getFocalLength", (PyCFunction) gPyGetFocalLength, METH_VARARGS, "get the focal length for stereo mode"},
+	{"getStereoEye", (PyCFunction) gPyGetStereoEye, METH_VARARGS, "get the current stereoscopy eye being rendered"},
 	{"setMaterialMode",(PyCFunction) gPySetMaterialType,
 	 METH_VARARGS, "set the material mode to use for OpenGL rendering"},
 	{"getMaterialMode",(PyCFunction) gPyGetMaterialType,
