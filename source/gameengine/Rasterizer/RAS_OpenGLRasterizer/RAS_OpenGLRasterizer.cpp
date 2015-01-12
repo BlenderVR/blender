@@ -826,25 +826,6 @@ void RAS_OpenGLRasterizer::SetProjectionMatrix(const MT_Matrix4x4 & mat)
 	m_camortho= (mat[3][3] != 0.0);
 }
 
-void RAS_OpenGLRasterizer::SetModelViewMatrix(const MT_Matrix4x4 &mat)
-{
-	m_viewmatrix = mat;
-	m_viewinvmatrix = m_viewmatrix;
-	m_viewinvmatrix.invert();
-
-	glMatrixMode(GL_MODELVIEW);
-	double matrix[16];
-	/* Get into argument. Looks a bit dodgy, but it's ok. */
-	mat.getValue(matrix);
-	/* Internally, MT_Matrix4x4 uses doubles (MT_Scalar). */
-	glLoadMatrixd(matrix);
-}
-
-void RAS_OpenGLRasterizer::SetCameraPosition(const MT_Point3 & pos)
-{
-	m_campos = pos;
-}
-
 MT_Matrix4x4 RAS_OpenGLRasterizer::GetFrustumMatrix(
 	float left,
 	float right,
@@ -921,6 +902,25 @@ MT_Matrix4x4 RAS_OpenGLRasterizer::GetOrthoMatrix(
 	result.setValue(mat);
 
 	return result;
+}
+
+void RAS_OpenGLRasterizer::SetModelViewMatrix(const MT_Matrix4x4 &mat)
+{
+	m_viewmatrix = mat;
+	m_viewinvmatrix = m_viewmatrix;
+	m_viewinvmatrix.invert();
+
+	glMatrixMode(GL_MODELVIEW);
+	double matrix[16];
+	/* Get into argument. Looks a bit dodgy, but it's ok. */
+	mat.getValue(matrix);
+	/* Internally, MT_Matrix4x4 uses doubles (MT_Scalar). */
+	glLoadMatrixd(matrix);
+}
+
+void RAS_OpenGLRasterizer::SetCameraPosition(const MT_Point3 & pos)
+{
+	m_campos = pos;
 }
 
 const MT_Point3& RAS_OpenGLRasterizer::GetCameraPosition()

@@ -195,7 +195,6 @@ public:
 	virtual void SetProjectionMatrix(const MT_Matrix4x4 &mat);
 	virtual void SetModelViewMatrix(const MT_Matrix4x4 &mat);
 	virtual void SetCameraPosition(const MT_Point3 &pos);
-
 	virtual const MT_Point3& GetCameraPosition();
 	virtual bool GetCameraOrtho();
 	
