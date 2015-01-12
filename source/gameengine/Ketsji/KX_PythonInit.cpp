@@ -2320,6 +2320,10 @@ PyObject *initRasterizer(RAS_IRasterizer* rasty,RAS_ICanvas* canvas)
 	KX_MACRO_addTypesToDict(d, VSYNC_ON, VSYNC_ON);
 	KX_MACRO_addTypesToDict(d, VSYNC_ADAPTIVE, VSYNC_ADAPTIVE);
 
+	/* stereoscopy */
+	KX_MACRO_addTypesToDict(d, LEFT_EYE, RAS_IRasterizer::RAS_STEREO_LEFTEYE);
+	KX_MACRO_addTypesToDict(d, RIGHT_EYE, RAS_IRasterizer::RAS_STEREO_RIGHTEYE);
+
 	// XXXX Add constants here
 
 	// Check for errors
